@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="fishpig_csp_violation" resource="default" engine="innodb" comment="FishPig CSP Violations">
+        <column xsi:type="int" name="violation_id" padding="11" unsigned="true" nullable="false" identity="true" comment="Violation ID"/>
+        <column xsi:type="varchar" name="blocked_uri" nullable="false" length="255" default="" comment="Blocked URI"/>
+        <column xsi:type="varchar" name="violated_directive" nullable="false" length="255" default="" comment="Violated Directive"/>
+        <column xsi:type="varchar" name="effective_directive" nullable="false" length="255" default="" comment="Effective Directive"/>
+        <column xsi:type="varchar" name="referrer" nullable="false" length="255" default="" comment="Referrer"/>
+        <column xsi:type="text" name="original_policy" nullable="true" comment="Original Policy"/>
+        <column xsi:type="varchar" name="disposition" nullable="false" length="50" default="enforce" comment="Disposition"/>
+        <column xsi:type="int" name="status_code" unsigned="true" nullable="true" comment="Status Code"/>
+        <column xsi:type="text" name="script_sample" nullable="true" comment="Script Sample"/>
+        <column xsi:type="varchar" name="source_file" nullable="false" length="255" default="" comment="Source File"/>
+        <column xsi:type="int" name="line_number" unsigned="true" nullable="true" comment="Line Number"/>
+        <column xsi:type="int" name="column_number" unsigned="true" nullable="true" comment="Column Number"/>
+        <column xsi:type="int" name="report_count" padding="11" unsigned="true" nullable="false" default="0" comment="Report Count"/>
+        <column xsi:type="timestamp" name="last_reported_at" on_update="false" nullable="true" comment="Last Reported At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="violation_id"/>
+        </constraint>
+        <index referenceId="FISHPIG_CSP_VIOLATION_BLOCKED_URI_VIOLATED_DIRECTIVE" indexType="btree">
+            <column name="blocked_uri"/>
+            <column name="violated_directive"/>
+        </index>
+    </table>
+    <table name="fishpig_csp_report" resource="default" engine="innodb" comment="FishPig CSP Reports">
+        <column xsi:type="int" name="report_id" padding="11" unsigned="true" nullable="false" identity="true" comment="Report ID"/>
+        <column xsi:type="int" name="violation_id" padding="11" unsigned="true" nullable="false" comment="Violation ID"/>
+        <column xsi:type="varchar" name="document_uri" nullable="false" length="255" default="" comment="Document URI"/>
+        <column xsi:type="timestamp" name="reported_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Reported At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="report_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FISHPIG_CSP_REPORT_VIOLATION_ID_FISHPIG_CSP_VIOLATION_VIOLATION_ID"
+                    table="fishpig_csp_report" column="violation_id"
+                    referenceTable="fishpig_csp_violation" referenceColumn="violation_id"
+                    onDelete="CASCADE"/>
+        <index referenceId="FISHPIG_CSP_REPORT_VIOLATION_ID" indexType="btree">
+            <column name="violation_id"/>
+        </index>
+    </table>
+</schema>

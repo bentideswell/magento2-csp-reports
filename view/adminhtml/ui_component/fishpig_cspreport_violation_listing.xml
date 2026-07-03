@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">fishpig_cspreport_violation_listing.fishpig_cspreport_violation_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>fishpig_cspreport_violation_columns</spinner>
+        <deps>
+            <dep>fishpig_cspreport_violation_listing.fishpig_cspreport_violation_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="fishpig_cspreport_violation_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">violation_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>FishPig_CspReport::violations</aclResource>
+        <dataProvider class="FishPig\CspReport\Ui\DataProvider\Violation\Listing\DataProvider" name="fishpig_cspreport_violation_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>violation_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete the selected violations and all their reports?</message>
+                        <title translate="true">Delete Violations</title>
+                    </confirm>
+                    <url path="fishpig_cspreport/violation/delete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="fishpig_cspreport_violation_columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">fishpig_cspreport_violation_listing.fishpig_cspreport_violation_listing.fishpig_cspreport_violation_columns.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">view</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>violation_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+            </settings>
+        </selectionsColumn>
+        <column name="violation_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="blocked_uri">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Blocked URI</label>
+            </settings>
+        </column>
+        <column name="violated_directive">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Violated Directive</label>
+            </settings>
+        </column>
+        <column name="report_count">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Occurrences</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="last_reported_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Last Reported</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="FishPig\CspReport\Ui\Component\Listing\Column\ViolationActions">
+            <settings>
+                <indexField>violation_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

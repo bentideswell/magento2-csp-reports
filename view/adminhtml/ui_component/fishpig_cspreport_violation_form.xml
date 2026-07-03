@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">fishpig_cspreport_violation_form.fishpig_cspreport_violation_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Violation Details</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back">
+                <url path="*/*/index"/>
+                <class>back</class>
+                <label translate="true">Back</label>
+            </button>
+            <button name="delete" class="FishPig\CspReport\Block\Adminhtml\Violation\View\Button\Delete"/>
+        </buttons>
+        <namespace>fishpig_cspreport_violation_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>fishpig_cspreport_violation_form.fishpig_cspreport_violation_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="fishpig_cspreport_violation_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="fishpig_cspreport/violation/index"/>
+        </settings>
+        <dataProvider class="FishPig\CspReport\Ui\DataProvider\Violation\Form\DataProvider" name="fishpig_cspreport_violation_form_data_source">
+            <settings>
+                <requestFieldName>violation_id</requestFieldName>
+                <primaryFieldName>violation_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label translate="true">Violation</label>
+        </settings>
+        <field name="violation_id" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>violation_id</dataScope>
+            </settings>
+        </field>
+        <field name="blocked_uri" sortOrder="10" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Blocked URI</label>
+                <dataScope>blocked_uri</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="violated_directive" sortOrder="20" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Violated Directive</label>
+                <dataScope>violated_directive</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="effective_directive" sortOrder="30" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Effective Directive</label>
+                <dataScope>effective_directive</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="referrer" sortOrder="50" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Referrer</label>
+                <dataScope>referrer</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="source_file" sortOrder="60" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Source File</label>
+                <dataScope>source_file</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="line_number" sortOrder="70" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Line Number</label>
+                <dataScope>line_number</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="column_number" sortOrder="80" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Column Number</label>
+                <dataScope>column_number</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="disposition" sortOrder="90" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Disposition</label>
+                <dataScope>disposition</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="status_code" sortOrder="100" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Status Code</label>
+                <dataScope>status_code</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="script_sample" sortOrder="110" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Script Sample</label>
+                <dataScope>script_sample</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="original_policy" sortOrder="120" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Original Policy</label>
+                <dataScope>original_policy</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="report_count" sortOrder="130" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Total Occurrences</label>
+                <dataScope>report_count</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="last_reported_at" sortOrder="140" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Last Reported</label>
+                <dataScope>last_reported_at</dataScope>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+    </fieldset>
+</form>

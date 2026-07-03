@@ -1,0 +1,43 @@
+{
+    "fishpig_csp_violation": {
+        "column": {
+            "violation_id": true,
+            "blocked_uri": true,
+            "violated_directive": true,
+            "effective_directive": true,
+            "document_uri": true,
+            "referrer": true,
+            "original_policy": true,
+            "disposition": true,
+            "status_code": true,
+            "script_sample": true,
+            "source_file": true,
+            "line_number": true,
+            "column_number": true,
+            "report_count": true,
+            "last_reported_at": true
+        },
+        "index": {
+            "FISHPIG_CSP_VIOLATION_BLOCKED_URI_VIOLATED_DIRECTIVE_DOCUMENT_URI": true,
+            "FISHPIG_CSP_VIOLATION_BLOCKED_URI_VIOLATED_DIRECTIVE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "fishpig_csp_report": {
+        "column": {
+            "report_id": true,
+            "violation_id": true,
+            "document_uri": true,
+            "reported_at": true
+        },
+        "index": {
+            "FISHPIG_CSP_REPORT_VIOLATION_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FISHPIG_CSP_REPORT_VIOLATION_ID_FISHPIG_CSP_VIOLATION_VIOLATION_ID": true
+        }
+    }
+}

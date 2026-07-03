@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="csp">
+            <group id="mode">
+                <group id="storefront">
+                    <field id="report_only" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Mode</label>
+                        <comment>Report: violations are logged but not blocked. Block: violations are enforced and blocked by the browser.</comment>
+                        <source_model>FishPig\CspReport\Model\Config\Source\Mode</source_model>
+                    </field>
+                    <field id="report_uri" sortOrder="2">
+                        <depends>
+                            <field id="csp/fishpig_cspreport/enabled">0</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="admin">
+                    <field id="report_only" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Mode</label>
+                        <comment>Report: violations are logged but not blocked. Block: violations are enforced and blocked by the browser.</comment>
+                        <source_model>FishPig\CspReport\Model\Config\Source\Mode</source_model>
+                    </field>
+                    <field id="report_uri" sortOrder="2">
+                        <depends>
+                            <field id="csp/fishpig_cspreport/enabled">0</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+            <group id="fishpig_cspreport" translate="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>CSP Reports (FishPig)</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <config_path>fishpig_cspreport/general/enabled</config_path>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

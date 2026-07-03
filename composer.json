@@ -1,0 +1,16 @@
+{
+    "name": "fishpig/magento2-csp-report",
+    "description": "Collect and manage CSP violation reports in Magento 2",
+    "type": "magento2-module",
+    "require": {
+        "magento/framework": "*",
+        "magento/module-backend": "*",
+        "magento/module-csp": "*"
+    },
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "FishPig\\CspReport\\": ""
+        }
+    }
+}

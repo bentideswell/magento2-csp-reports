@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">fishpig_cspreport_report_listing.fishpig_cspreport_report_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>fishpig_cspreport_report_columns</spinner>
+        <deps>
+            <dep>fishpig_cspreport_report_listing.fishpig_cspreport_report_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="fishpig_cspreport_report_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">report_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+            <filterUrlParams>
+                <param name="violation_id">*</param>
+            </filterUrlParams>
+        </settings>
+        <aclResource>FishPig_CspReport::violations</aclResource>
+        <dataProvider class="FishPig\CspReport\Ui\DataProvider\Report\Listing\DataProvider" name="fishpig_cspreport_report_listing_data_source">
+            <settings>
+                <requestFieldName>violation_id</requestFieldName>
+                <primaryFieldName>report_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="fishpig_cspreport_report_columns">
+        <column name="report_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="document_uri">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Document URI</label>
+            </settings>
+        </column>
+        <column name="reported_at" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Reported At</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="FishPig\CspReport\Ui\Component\Listing\Column\ReportActions">
+            <settings>
+                <indexField>report_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

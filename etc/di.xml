@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="FishPig\CspReport\Api\CspReportHandlerInterface" type="FishPig\CspReport\Model\Handler\ReportUriHandler"/>
+
+    <!--/** Plugin to inject report-uri into CSP headers when enabled */-->
+    <type name="Magento\Csp\Model\Mode\ConfigManager">
+        <plugin name="fishpig_cspreport_report_uri" type="FishPig\CspReport\Plugin\Csp\ModeConfigPlugin"/>
+    </type>
+
+    <!--/** Strip the report-to directive Magento core adds alongside report-uri, since its
+             presence stops browsers from sending report-uri reports even when report-to itself
+             can't be delivered */-->
+    <type name="Magento\Framework\App\Response\Http">
+        <plugin name="fishpig_cspreport_strip_report_to" type="FishPig\CspReport\Plugin\Csp\ReportToHeaderPlugin"/>
+    </type>
+
+    <!--/** Violation listing data source */-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="fishpig_cspreport_violation_listing_data_source" xsi:type="string">FishPig\CspReport\Model\ResourceModel\Violation\Grid\Collection</item>
+                <item name="fishpig_cspreport_report_listing_data_source" xsi:type="string">FishPig\CspReport\Model\ResourceModel\Report\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--/** Violation grid collection */-->
+    <type name="FishPig\CspReport\Model\ResourceModel\Violation\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">fishpig_csp_violation</argument>
+            <argument name="eventPrefix" xsi:type="string">fishpig_cspreport_violation</argument>
+            <argument name="eventObject" xsi:type="string">violation</argument>
+            <argument name="resourceModel" xsi:type="string">FishPig\CspReport\Model\ResourceModel\Violation</argument>
+        </arguments>
+    </type>
+    <virtualType name="FishPig\CspReport\Ui\DataProvider\Violation\Listing\DataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+
+    <!--/** Report grid collection */-->
+    <type name="FishPig\CspReport\Model\ResourceModel\Report\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">fishpig_csp_report</argument>
+            <argument name="eventPrefix" xsi:type="string">fishpig_cspreport_report</argument>
+            <argument name="eventObject" xsi:type="string">report</argument>
+            <argument name="resourceModel" xsi:type="string">FishPig\CspReport\Model\ResourceModel\Report</argument>
+        </arguments>
+    </type>
+    <virtualType name="FishPig\CspReport\Ui\DataProvider\Report\Listing\DataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"/>
+</config>
