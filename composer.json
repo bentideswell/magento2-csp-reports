@@ -1,5 +1,5 @@
 {
-    "name": "fishpig/magento2-csp-report",
+    "name": "fishpig/magento2-csp-reports",
     "description": "Collect and manage CSP violation reports in Magento 2",
     "type": "magento2-module",
     "require": {
