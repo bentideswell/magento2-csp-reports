@@ -35,6 +35,11 @@
                     <config_path>fishpig_cspreport/general/enabled</config_path>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="excluded_domains" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Excluded Domains</label>
+                    <comment><![CDATA[One domain per line. Matched against the violation's host. Use * as a wildcard, e.g. <strong>*.honey.io</strong>]]></comment>
+                    <config_path>fishpig_cspreport/general/excluded_domains</config_path>
+                </field>
             </group>
         </section>
     </system>

@@ -20,6 +20,7 @@ class ReportUriHandler implements CspReportHandlerInterface
         private ViolationResource $violationResource,
         private ReportFactory $reportFactory,
         private ReportResource $reportResource,
+        private DomainExcluder $domainExcluder,
         private LoggerInterface $logger
     ) {}
 
@@ -33,6 +34,15 @@ class ReportUriHandler implements CspReportHandlerInterface
             $documentUri       = (string)($data['document_uri'] ?? '');
 
             if ($blockedUri === '' && $violatedDirective === '') {
+                return;
+            }
+
+            // Browser extensions injecting resources into the page, not the site's own violations
+            if (preg_match('#^(?:chrome|moz|safari|ms-browser)-extension://#', $blockedUri)) {
+                return;
+            }
+
+            if ($this->domainExcluder->isExcluded($blockedUri)) {
                 return;
             }
 
